@@ -1,10 +1,1 @@
-<% if user_signed_in? %>
-  <%= form_tag destroy_user_session_path, method: :delete, data: { turbo: false } do %>
-    <%= submit_tag 'Sign out', class: 'btn btn-primary' %>
-  <% end %>
-<% else %>  
-<h2>Sign in with Google</h2>
-  <%= form_tag user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } do %>
-    <%= submit_tag "Sign in with Google", class: "btn btn-primary" %>
-  <% end %>
-<% end %>
+<h1>Brightcoders Admin, please login</h1>
