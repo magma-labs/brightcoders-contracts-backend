@@ -1,0 +1,16 @@
+<h1>Student: <%= @student.name %></h1>
+
+<p>Email: <%= @student.email %></p>
+<p>Wallet Address: <%= @student.wallet_address %></p>
+
+<h2>NFTs</h2>
+
+<%= link_to 'Mint NFT', new_student_nft_path(@student), class: 'btn btn-primary mb-3' %>
+
+<% @student.nfts.each do |nft| %>
+  <p><%= nft.name %></p>
+<% end %>
+
+<%= link_to 'Edit', edit_student_path(@student) %>
+<%= link_to 'Delete', @student, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Back', students_path %>

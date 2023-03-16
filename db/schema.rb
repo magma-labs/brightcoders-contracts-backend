@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_15_224128) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_15_232322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_224128) do
     t.string "name"
     t.text "description"
     t.string "student"
+    t.integer "token_id"
+    t.string "ipfs_metadata"
+    t.string "ipfs_image"
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_nfts_on_student_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "second_surname"
+    t.string "email"
+    t.string "wallet_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -38,4 +53,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_224128) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
+  add_foreign_key "nfts", "students"
 end

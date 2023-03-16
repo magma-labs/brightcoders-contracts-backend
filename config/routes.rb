@@ -1,4 +1,3 @@
-# config/routes.rb
 Rails.application.routes.draw do
   root to: "home#index"
 
@@ -9,5 +8,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
   end
 
-  resources :nfts, only: [:new, :create]
+  resources :students do
+    resources :nfts, only: [:new, :create, :destroy]
+  end
 end
