@@ -7,4 +7,7 @@ class Nft < ApplicationRecord
   validates :description, presence: true
   validates :student, presence: true
   validates :image_temp, presence: true
+  validates :token_id, presence: true
+  validates :ipfs_metadata, presence: true
+  validates :ipfs_image, presence: true
 end

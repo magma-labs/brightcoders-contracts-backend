@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_232322) do
   create_table "nfts", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "student"
     t.integer "token_id"
     t.string "ipfs_metadata"
     t.string "ipfs_image"

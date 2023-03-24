@@ -3,7 +3,6 @@ class CreateNfts < ActiveRecord::Migration[7.0]
     create_table :nfts do |t|
       t.string :name
       t.text :description
-      t.string :student
       t.integer :token_id
       t.string :ipfs_metadata
       t.string :ipfs_image

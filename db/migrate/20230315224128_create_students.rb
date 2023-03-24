@@ -4,7 +4,7 @@ class CreateStudents < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :surname
       t.string :second_surname
-      t.string :email
+      t.string :email, unique: true
       t.string :wallet_address
 
       t.timestamps
