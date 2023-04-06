@@ -17,6 +17,9 @@ COPY Gemfile* ./
 # Install gems
 RUN bundle install
 
+# Compile assets
+RUN rails assets:precompile
+
 # Copy the package.json and yarn.lock
 COPY package.json yarn.lock ./
 

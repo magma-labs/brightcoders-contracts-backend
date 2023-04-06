@@ -20,12 +20,6 @@
           <%= form_tag destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-item" do %>
             <%= submit_tag 'Sign out', class: 'btn btn-primary' %>
           <% end %>
-        <% else %>
-          <div class="nav-item">
-            <%= form_tag user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } do %>
-              <%= submit_tag "Sign in with Google", class: "btn btn-primary" %>
-            <% end %>
-          </div>
         <% end %>
       </div>
     </div>

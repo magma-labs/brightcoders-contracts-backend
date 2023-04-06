@@ -17,7 +17,7 @@ class NftMinter
 
     # Build the CLI command
     cmd = [
-      'npx hardhat mint',
+      'npx hardhat compile && npx hardhat mint',
       "--contract #{contract}",
       "--receiver #{receiver}",
       "--name \"#{permitted_params[:name]}\"",
@@ -26,6 +26,8 @@ class NftMinter
       "--imagefilename #{image_file_path}",
       "--network #{network}"
     ].join(' ')
+
+    puts "Executing CLI command: #{cmd}"
 
     stdout, stderr, status = nil
 

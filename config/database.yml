@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: brightcodersAdmin_production
-  username: brightcodersAdmin
-  password: <%= ENV["BRIGHTCODERSADMIN_DATABASE_PASSWORD"] %>
