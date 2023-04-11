@@ -1,0 +1,12 @@
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>New Course</h1>
+        <%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
+      </div>
+      <%= render 'form', course: @course %>
+    </div>
+  </div>
+</div>

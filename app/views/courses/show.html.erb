@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-warning' %>
+  <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', style: 'margin-left: 10px;' %>
+  <%= link_to 'Back', courses_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
+</div>
+
+<div class="container mt-5">
+  <p>Description: <%= @course.description %></p>
+
+  <% if @course.image.attached? %>
+    <%= image_tag(@course.image, class: 'img-thumbnail', style: 'max-height: 200px;') %>
+  <% else %>
+    <p>No image available</p>
+  <% end %>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Token ID</th>
+          <th>IPFS Metadata</th>
+          <th>IPFS Image</th>
+          <th>OPENSEA</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @course.nfts.each do |nft| %>
+          <tr>
+            <td><%= nft.name %></td>
+            <td><%= nft.description %></td>
+            <td><%= nft.token_id %></td>
+            <td>
+              <%= link_to nft.ipfs_metadata, "https://ipfs.io/ipfs/#{nft.ipfs_metadata}", target: "_blank" %>
+            </td>
+            <td>
+              <%= image_tag "https://ipfs.io/ipfs/#{nft.ipfs_image}/image", alt: "#{nft.name} image", class: "img-thumbnail", width: "100" %>
+            </td>
+            <td><%= link_to 'View In OPENSEA', "#{ENV['OPENSEA_BASE_URL']}/#{ENV['CONTRACT_ADDRESS']}/#{nft.token_id}", target: "_blank" %></td>
+            <td>
+              <%= form_with url: student_nft_path(@student, nft), method: :delete, class: "d-inline" do |form| %>
+                <%= form.submit "Delete", class: "btn btn-danger btn-sm", data: { turbo_confirm: "Are you sure?" } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-warning' %>
+  <%= link_to 'Back', students_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
+</div>

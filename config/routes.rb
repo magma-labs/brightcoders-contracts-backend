@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :students do
     resources :nfts, only: [:new, :create, :destroy]
   end
+
+  resources :courses
 end

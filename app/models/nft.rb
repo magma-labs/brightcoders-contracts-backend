@@ -1,5 +1,6 @@
 class Nft < ApplicationRecord
   belongs_to :student
+  belongs_to :course
 
   attr_accessor :image_temp
 
