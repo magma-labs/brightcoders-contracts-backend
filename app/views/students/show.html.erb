@@ -34,7 +34,7 @@
             <td>
               <%= image_tag "https://ipfs.io/ipfs/#{nft.ipfs_image}/image", alt: "#{nft.name} image", class: "img-thumbnail", width: "100" %>
             </td>
-            <td><%= link_to 'View In OPENSEA', "#{ENV['OPENSEA_BASE_URL']}/#{ENV['CONTRACT_ADDRESS']}/#{nft.token_id}", target: "_blank" %></td>
+            <td><%= link_to 'View In OPENSEA', "#{ENV['OPENSEA_BASE_URL']}/assets/#{ENV['CONTRACT_NETWORK']}/#{ENV['CONTRACT_ADDRESS']}/#{nft.token_id}", target: "_blank" %></td>
             <td>
               <%= form_with url: student_nft_path(@student, nft), method: :delete, class: "d-inline" do |form| %>
                 <%= form.submit "Delete", class: "btn btn-danger btn-sm", data: { turbo_confirm: "Are you sure?" } %>

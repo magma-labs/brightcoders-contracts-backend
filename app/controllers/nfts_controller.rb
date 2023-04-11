@@ -21,6 +21,7 @@ class NftsController < ApplicationController
   
       if response[:success]
         @nft = @student.nfts.build(
+          course_id: course.id,
           name: course.title,
           description: course.description,
           token_id: response[:token_id],

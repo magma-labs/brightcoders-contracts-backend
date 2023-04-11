@@ -1,8 +1,7 @@
 class Course < ApplicationRecord
-  # Add the Active Storage image association
+  has_many :nfts
   has_one_attached :image
 
-  # Add any necessary validations and relationships
   validates :title, presence: true
   validates :description, presence: true
 end

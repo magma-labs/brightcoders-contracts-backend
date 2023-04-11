@@ -2,9 +2,12 @@ require 'open3'
 
 class NftMinter
   def self.mint_nft(nft_params)
-    permitted_params = nft_params.permit(:name, :description, :image_temp, :student_id)
+    name = nft_params[:name]
+    description = nft_params[:description]
+    image = nft_params[:image_temp]
+    student_id = nft_params[:student].id
 
-    student = Student.find(permitted_params[:student_id])
+    student = Student.find(student_id)
     receiver = student.wallet_address
 
     # Read values from environment variables
@@ -13,15 +16,15 @@ class NftMinter
     network = ENV['CONTRACT_NETWORK']
 
     # Get the temporary image file path
-    image_file_path = permitted_params[:image_temp].tempfile.path
+    image_file_path = create_temp_image_file(image)
 
     # Build the CLI command
     cmd = [
       'npx hardhat compile && npx hardhat mint',
       "--contract #{contract}",
       "--receiver #{receiver}",
-      "--name \"#{permitted_params[:name]}\"",
-      "--description \"#{permitted_params[:description]}\"",
+      "--name \"#{name}\"",
+      "--description \"#{description}\"",
       "--student \"#{student.id}\"",
       "--imagefilename #{image_file_path}",
       "--network #{network}"
@@ -36,7 +39,6 @@ class NftMinter
       stdout, stderr, status = Open3.capture3(cmd)
     end
 
-    # debugger
     if status.success?
       # If the command succeeded, parse the output and return the relevant data
       token_id, ipfs_metadata, ipfs_image = parse_output(stdout)
@@ -45,6 +47,18 @@ class NftMinter
       # If the command failed, return an error message
       { success: false, error_message: "Failed to mint NFT using CLI command: #{stderr}" }
     end
+  ensure
+    # Remove the temporary image file
+    File.delete(image_file_path) if image_file_path && File.exist?(image_file_path)
+  end
+
+  def self.create_temp_image_file(image)
+    image_blob = image.blob
+    temp_file = Tempfile.new([image_blob.filename.base, image_blob.filename.extension_with_delimiter])
+    temp_file.binmode
+    temp_file.write(image_blob.download)
+    temp_file.rewind
+    temp_file.path
   end
 
   def self.parse_output(output)

@@ -1,10 +1,4 @@
 <div class="container mt-5">
-  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-warning' %>
-  <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', style: 'margin-left: 10px;' %>
-  <%= link_to 'Back', courses_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
-</div>
-
-<div class="container mt-5">
   <p>Description: <%= @course.description %></p>
 
   <% if @course.image.attached? %>
@@ -23,7 +17,7 @@
           <th>IPFS Metadata</th>
           <th>IPFS Image</th>
           <th>OPENSEA</th>
-          <th>Actions</th>
+          <th>Student</th>
         </tr>
       </thead>
       <tbody>
@@ -38,11 +32,9 @@
             <td>
               <%= image_tag "https://ipfs.io/ipfs/#{nft.ipfs_image}/image", alt: "#{nft.name} image", class: "img-thumbnail", width: "100" %>
             </td>
-            <td><%= link_to 'View In OPENSEA', "#{ENV['OPENSEA_BASE_URL']}/#{ENV['CONTRACT_ADDRESS']}/#{nft.token_id}", target: "_blank" %></td>
+            <td><%= link_to 'View In OPENSEA', "#{ENV['OPENSEA_BASE_URL']}/assets/#{ENV['CONTRACT_NETWORK']}/#{ENV['CONTRACT_ADDRESS']}/#{nft.token_id}", target: "_blank" %></td>
             <td>
-              <%= form_with url: student_nft_path(@student, nft), method: :delete, class: "d-inline" do |form| %>
-                <%= form.submit "Delete", class: "btn btn-danger btn-sm", data: { turbo_confirm: "Are you sure?" } %>
-              <% end %>
+              <%= link_to nft.student.name, student_path(nft.student) , class: 'btn btn-warning' %>
             </td>
           </tr>
         <% end %>
@@ -50,6 +42,7 @@
     </table>
   </div>
 
-  <%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-warning' %>
-  <%= link_to 'Back', students_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-warning' %>
+  <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', style: 'margin-left: 10px;' %>
+  <%= link_to 'Back', courses_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
 </div>
