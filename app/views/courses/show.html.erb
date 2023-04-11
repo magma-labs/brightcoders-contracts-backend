@@ -1,13 +1,11 @@
 <div class="container mt-5">
-  <h1>Student: <%= @student.name + " " + @student.surname + " " + @student.second_surname %></h1>
+  <p>Description: <%= @course.description %></p>
 
-  <p>Email: <%= @student.email %></p>
-  <p>Wallet Address: <%= @student.wallet_address %></p>
-
-  <div class="d-flex justify-content-between">
-    <h2>NFTs</h2>
-    <%= link_to 'Mint NFT', new_student_nft_path(@student), class: 'btn btn-primary mb-3' %>
-  </div>
+  <% if @course.image.attached? %>
+    <%= image_tag(@course.image, class: 'img-thumbnail', style: 'max-height: 200px;') %>
+  <% else %>
+    <p>No image available</p>
+  <% end %>
 
   <div class="table-responsive">
     <table class="table table-striped table-hover">
@@ -19,11 +17,11 @@
           <th>IPFS Metadata</th>
           <th>IPFS Image</th>
           <th>OPENSEA</th>
-          <th>Actions</th>
+          <th>Student</th>
         </tr>
       </thead>
       <tbody>
-        <% @student.nfts.each do |nft| %>
+        <% @course.nfts.each do |nft| %>
           <tr>
             <td><%= nft.name %></td>
             <td><%= nft.description %></td>
@@ -36,9 +34,7 @@
             </td>
             <td><%= link_to 'View In OPENSEA', "#{ENV['OPENSEA_BASE_URL']}/assets/#{ENV['CONTRACT_NETWORK']}/#{ENV['CONTRACT_ADDRESS']}/#{nft.token_id}", target: "_blank" %></td>
             <td>
-              <%= form_with url: student_nft_path(@student, nft), method: :delete, class: "d-inline" do |form| %>
-                <%= form.submit "Delete", class: "btn btn-danger btn-sm", data: { turbo_confirm: "Are you sure?" } %>
-              <% end %>
+              <%= link_to nft.student.name, student_path(nft.student) , class: 'btn btn-warning' %>
             </td>
           </tr>
         <% end %>
@@ -46,6 +42,7 @@
     </table>
   </div>
 
-  <%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-warning' %>
-  <%= link_to 'Back', students_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-warning' %>
+  <%= link_to 'Delete', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', style: 'margin-left: 10px;' %>
+  <%= link_to 'Back', courses_path, class: 'btn btn-secondary', style: 'margin-left: 10px;' %>
 </div>

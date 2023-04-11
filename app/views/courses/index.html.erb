@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <h1>Courses</h1>
+
+  <%= link_to 'New Course', new_course_path, class: 'btn btn-primary mb-3' %>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= course.title %></td>
+            <td><%= course.description %></td>
+            <td>
+              <% if course.image.attached? %>
+                <%= image_tag(course.image, class: 'img-thumbnail', style: 'max-height: 200px;') %>
+              <% else %>
+                <p>No image available</p>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to 'Show', course_path(course), class: 'btn btn-info btn-sm' %>
+              <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-warning btn-sm' %>
+              <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
