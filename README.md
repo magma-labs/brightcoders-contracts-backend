@@ -80,3 +80,5 @@ heroku container:push web -a brightcoders-admin-$env # Replace $env with desired
 heroku container:release web -a brightcoders-admin-$env # Replace $env with desired environment
 ```
 
+Note: Dotenv is only working for development so you have to ensure env variables are set in heroku environment. You can do this through the interface in the website or through the cli.
+
